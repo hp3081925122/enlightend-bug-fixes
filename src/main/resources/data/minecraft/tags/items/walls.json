@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "enlightened_end:bismuth_sheet_wall",
+    "enlightened_end:dazzling_bismuth_wall",
+    "enlightened_end:depleted_irradium_brick_wall",
+    "enlightened_end:end_stone_tile_wall",
+    "enlightened_end:end_stone_wall",
+    "enlightened_end:ethereal_bismuth_sheet_wall",
+    "enlightened_end:glacium_brick_wall",
+    "enlightened_end:iridescent_bismuth_sheet_wall",
+    "enlightened_end:irradium_brick_wall",
+    "enlightened_end:malachite_brick_wall",
+    "enlightened_end:malachite_tile_wall",
+    "enlightened_end:malachite_wall",
+    "enlightened_end:palerock_brick_wall",
+    "enlightened_end:palerock_tile_wall",
+    "enlightened_end:palerock_wall",
+    "enlightened_end:poise_bismuth_sheet_wall",
+    "enlightened_end:polished_malachite_wall",
+    "enlightened_end:polished_palerock_wall",
+    "enlightened_end:polished_void_shale_wall",
+    "enlightened_end:purpur_wall",
+    "enlightened_end:serene_bismuth_sheet_wall",
+    "enlightened_end:smooth_purpur_wall",
+    "enlightened_end:verdant_bismuth_sheet_wall",
+    "enlightened_end:void_shale_brick_wall",
+    "enlightened_end:void_shale_tile_wall",
+    "enlightened_end:void_shale_wall",
+    "enlightened_end:waxed_bismuth_sheet_wall"
+  ]
+}

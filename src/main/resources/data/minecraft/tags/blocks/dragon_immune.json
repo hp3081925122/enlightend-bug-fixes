@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "enlightened_end:bismuth_ore",
+    "enlightened_end:palerock",
+    "enlightened_end:malachite_ore",
+    "enlightened_end:irradium_ore",
+    "enlightened_end:void_shale",
+    "enlightened_end:adamantite_node"
+  ]
+}

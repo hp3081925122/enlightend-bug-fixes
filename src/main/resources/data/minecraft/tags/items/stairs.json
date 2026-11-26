@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "enlightened_end:bismuth_sheet_stairs",
+    "enlightened_end:cerulean_stairs",
+    "enlightened_end:dazzling_bismuth_sheet_stairs",
+    "enlightened_end:depleted_irradium_brick_stairs",
+    "enlightened_end:end_stone_stairs",
+    "enlightened_end:end_stone_tile_stairs",
+    "enlightened_end:ethereal_bismuth_sheet_stairs",
+    "enlightened_end:glacium_brick_stairs",
+    "enlightened_end:indigo_stairs",
+    "enlightened_end:iridescent_bismuth_sheet_stairs",
+    "enlightened_end:irradium_brick_stairs",
+    "enlightened_end:malachite_brick_stairs",
+    "enlightened_end:malachite_stairs",
+    "enlightened_end:malachite_tile_stairs",
+    "enlightened_end:palerock_brick_stairs",
+    "enlightened_end:palerock_stairs",
+    "enlightened_end:palerock_tile_stairs",
+    "enlightened_end:poise_bismuth_sheet_stairs",
+    "enlightened_end:polished_malachite_stairs",
+    "enlightened_end:polished_palerock_stairs",
+    "enlightened_end:polished_void_shale_stairs",
+    "enlightened_end:serene_bismuth_sheet_stairs",
+    "enlightened_end:smooth_purpur_stairs",
+    "enlightened_end:verdant_bismuth_sheet_stairs",
+    "enlightened_end:void_shale_brick_stairs",
+    "enlightened_end:void_shale_stairs",
+    "enlightened_end:void_shale_tile_stairs",
+    "enlightened_end:waxed_bismuth_sheet_stairs"
+  ]
+}

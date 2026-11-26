@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "enlightened_end:cerulean_button",
+    "enlightened_end:indigo_button",
+    "enlightened_end:palerock_button",
+    "enlightened_end:void_shale_button"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": "minecraft:small_end_islands",
+  "spawners": {
+    "type": "enlightened_end:void_leviathan",
+    "weight": 10,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

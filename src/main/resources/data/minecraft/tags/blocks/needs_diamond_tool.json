@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "enlightened_end:adamantite_block",
+    "enlightened_end:adamantite_node",
+    "enlightened_end:depleted_irradium_block",
+    "enlightened_end:depleted_irradium_brick_slab",
+    "enlightened_end:depleted_irradium_brick_stairs",
+    "enlightened_end:depleted_irradium_brick_wall",
+    "enlightened_end:irradium_block",
+    "enlightened_end:irradium_brick_slab",
+    "enlightened_end:irradium_brick_stairs",
+    "enlightened_end:irradium_brick_wall"
+  ]
+}

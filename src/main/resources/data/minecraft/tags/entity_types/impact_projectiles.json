@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "enlightened_end:projectile_helium_dart",
+    "enlightened_end:projectile_xenon_dart",
+    "enlightened_end:projectile_flash_bomb"
+  ]
+}

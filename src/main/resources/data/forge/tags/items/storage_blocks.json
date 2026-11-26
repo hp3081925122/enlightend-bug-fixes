@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "enlightened_end:malachite_block",
+    "enlightened_end:raw_bismuth_block",
+    "enlightened_end:bismuth_block",
+    "enlightened_end:raw_irradium_block",
+    "enlightened_end:irradium_block",
+    "enlightened_end:depleted_irradium_block",
+    "enlightened_end:glacium_block",
+    "enlightened_end:adamantite_block"
+  ]
+}

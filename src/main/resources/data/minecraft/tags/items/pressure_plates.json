@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "enlightened_end:cerulean_pressure_plate",
+    "enlightened_end:indigo_pressure_plate",
+    "enlightened_end:palerock_pressure_plate",
+    "enlightened_end:void_shale_pressure_plate"
+  ]
+}

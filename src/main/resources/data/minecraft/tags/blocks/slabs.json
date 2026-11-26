@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "enlightened_end:bismuth_sheet_slab",
+    "enlightened_end:cerulean_slab",
+    "enlightened_end:dazzling_bismuth_slab",
+    "enlightened_end:depleted_irradium_brick_slab",
+    "enlightened_end:end_stone_slab",
+    "enlightened_end:end_stone_tile_slab",
+    "enlightened_end:ethereal_bismuth_sheet_slab",
+    "enlightened_end:glacium_brick_slab",
+    "enlightened_end:indigo_slab",
+    "enlightened_end:iridescent_bismuth_sheet_slab",
+    "enlightened_end:irradium_brick_slab",
+    "enlightened_end:malachite_brick_slab",
+    "enlightened_end:malachite_slab",
+    "enlightened_end:malachite_tile_slab",
+    "enlightened_end:palerock_brick_slab",
+    "enlightened_end:palerock_slab",
+    "enlightened_end:palerock_tile_slab",
+    "enlightened_end:poise_bismuth_sheet_slab",
+    "enlightened_end:polished_malachite_slab",
+    "enlightened_end:polished_palerock_slab",
+    "enlightened_end:polished_void_shale_slab",
+    "enlightened_end:serene_bismuth_sheet_slab",
+    "enlightened_end:smooth_purpur_slab",
+    "enlightened_end:verdant_bismuth_sheet_slab",
+    "enlightened_end:void_shale_brick_slab",
+    "enlightened_end:void_shale_slab",
+    "enlightened_end:void_shale_tile_slab",
+    "enlightened_end:waxed_bismuth_sheet_slab"
+  ]
+}
