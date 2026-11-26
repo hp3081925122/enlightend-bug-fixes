@@ -59,7 +59,7 @@ public abstract class PlayerEnterEndMixin {
         if (biome.is(BIOME_BARRENS) || biome.is(BIOME_MIDLANDS) || biome.is(BIOME_HIGHLANDS) || biome.is(BIOME_SMALL_ISLANDS)) {
             if (!EfBugfixConfig.DISABLE_PATREON_CHAT_MESSAGE.get()) {
                 serverPlayer.sendSystemMessage(
-                        Component.literal("Thanks for playing Enlightend! If you enjoy, you can support me on patreon by clicking this message!")
+                        Component.translatable("message.enlightened_end.patreon_notice")
                                 .withStyle(style -> style.withColor(ChatFormatting.YELLOW)
                                         .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.patreon.com/lixir")))
                 );

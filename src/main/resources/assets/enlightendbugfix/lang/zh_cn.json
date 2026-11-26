@@ -1,0 +1,12 @@
+{
+  "tooltip.enlightened_end.teleporter.line1": "充能时可传送上方方块",
+  "tooltip.enlightened_end.teleporter.line2": "必须通过一条直线排列的孔雀石块连接到另一台传送器",
+  "tooltip.enlightened_end.wip": "开发中物品，功能可能尚未实装。",
+  "tooltip.enlightened_end.malachite_reflector.line1": "可放置",
+  "tooltip.enlightened_end.malachite_reflector.line2": "可反射入射激光",
+  "tooltip.enlightened_end.malachite_reflector.line3": "潜行放置以安放竖直反射镜",
+  "tooltip.enlightened_end.rooting_blade": "攻击时将敌人禁锢在地面",
+  "message.enlightened_end.offering_statue.requires": "§9§kL§r§9雕像需要 %s 作为祭品§kL§r§9",
+  "message.enlightened_end.offering_statue.accepts": "§9§kL§r§9雕像接受了你的献祭§9§kL§r§9",
+  "message.enlightened_end.patreon_notice": "感谢游玩终末之光（Enlightend）！如果你喜欢本模组，可以点击此消息在 Patreon 上支持原作者！"
+}

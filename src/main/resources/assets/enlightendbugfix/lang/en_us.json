@@ -1,0 +1,12 @@
+{
+  "tooltip.enlightened_end.teleporter.line1": "Teleports blocks above when powered",
+  "tooltip.enlightened_end.teleporter.line2": "Must be connected in a straight line of Malachite Blocks to another Teleporter",
+  "tooltip.enlightened_end.wip": "Work-in-progress. Functionality may be absent.",
+  "tooltip.enlightened_end.malachite_reflector.line1": "Can be placed",
+  "tooltip.enlightened_end.malachite_reflector.line2": "Reflects incoming lasers",
+  "tooltip.enlightened_end.malachite_reflector.line3": "Shift-place to place vertical reflectors",
+  "tooltip.enlightened_end.rooting_blade": "Roots enemies in the ground on attack",
+  "message.enlightened_end.offering_statue.requires": "§9§kL§r§9The Statue requires a %s as an offering§kL§r§9",
+  "message.enlightened_end.offering_statue.accepts": "§9§kL§r§9The Statue accepts your offering§9§kL§r§9",
+  "message.enlightened_end.patreon_notice": "Thanks for playing Enlightend! If you enjoy, you can support me on patreon by clicking this message!"
+}

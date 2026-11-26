@@ -623,6 +623,108 @@ public final class EfBugfixGameTests {
         helper.succeed();
     }
 
+    /**
+     * 10. 验证 215 个数据驱动方块战利品表、bouncer/floating_elevibloom 实体战利品表（含天敌不掉落条件）及全部硬编码文本翻译键。
+     */
+    @GameTest(template = EMPTY_TEMPLATE, templateNamespace = Enlightendbugfix.MOD_ID)
+    public static void testDataDrivenLootTablesAndLocalizedTexts(GameTestHelper helper) {
+        ServerLevel level = helper.getLevel();
+        BlockPos pos = helper.absolutePos(new BlockPos(2, 2, 2));
+        Player player = helper.makeMockPlayer();
+
+        // 1) 验证双层台阶通过 JSON 战利品表掉落 2 个，门上半部掉 0 个、下半部掉 1 个，非自身掉落方块正确返回目标物品
+        BlockState doubleSlab = EnlightenedEndModBlocks.END_STONE_SLAB.get().defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE);
+        LootParams.Builder slabBuilder = new LootParams.Builder(level)
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+                .withParameter(LootContextParams.TOOL, new ItemStack(Items.DIAMOND_PICKAXE));
+        List<ItemStack> slabDrops = doubleSlab.getDrops(slabBuilder);
+        helper.assertTrue(slabDrops.size() == 1 && slabDrops.get(0).getCount() == 2,
+                "Double end_stone_slab must drop 2 slabs via JSON loot table");
+
+        BlockState upperDoor = EnlightenedEndModBlocks.CERULEAN_DOOR.get().defaultBlockState()
+                .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF,
+                        net.minecraft.world.level.block.state.properties.DoubleBlockHalf.UPPER);
+        BlockState lowerDoor = EnlightenedEndModBlocks.CERULEAN_DOOR.get().defaultBlockState()
+                .setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF,
+                        net.minecraft.world.level.block.state.properties.DoubleBlockHalf.LOWER);
+        LootParams.Builder axeBuilder = new LootParams.Builder(level)
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+                .withParameter(LootContextParams.TOOL, new ItemStack(Items.DIAMOND_AXE));
+        helper.assertTrue(upperDoor.getDrops(axeBuilder).isEmpty(), "Upper half of cerulean_door must drop nothing");
+        helper.assertTrue(lowerDoor.getDrops(axeBuilder).size() == 1, "Lower half of cerulean_door must drop 1 door");
+
+        BlockState stalk1 = EnlightenedEndModBlocks.CERULEAN_STALK_1.get().defaultBlockState();
+        List<ItemStack> stalkDrops = stalk1.getDrops(axeBuilder);
+        helper.assertTrue(stalkDrops.stream().anyMatch(s -> s.is(EnlightenedEndModItems.CERULEAN_STALK.get())),
+                "cerulean_stalk_1 must drop cerulean_stalk via JSON loot table");
+
+        // 2) 验证 bouncer 与 floating_elevibloom 实体 JSON 战利品表（玩家击杀掉落，天敌击杀不掉落，且原 DiesProcedure 不再重复刷掉落）
+        LootTable bouncerLoot = level.getServer().getLootData().getLootTable(new ResourceLocation("enlightened_end:entities/bouncer"));
+        helper.assertTrue(bouncerLoot != LootTable.EMPTY, "entities/bouncer loot table must exist");
+        BouncelingEntity bouncer = EnlightenedEndModEntities.BOUNCER.get().create(level);
+        bouncer.setPos(pos.getX(), pos.getY(), pos.getZ());
+        LootParams playerKillParams = new LootParams.Builder(level)
+                .withParameter(LootContextParams.THIS_ENTITY, bouncer)
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+                .withParameter(LootContextParams.DAMAGE_SOURCE, level.damageSources().playerAttack(player))
+                .withParameter(LootContextParams.KILLER_ENTITY, player)
+                .create(LootContextParamSets.ENTITY);
+        helper.assertTrue(bouncerLoot.getRandomItems(playerKillParams).stream()
+                        .anyMatch(s -> s.is(EnlightenedEndModItems.SQUISHED_BOUNCER.get())),
+                "Player killing bouncer must drop squished_bouncer via JSON");
+
+        RinglingEntity ringling = EnlightenedEndModEntities.RINGLING.get().create(level);
+        ringling.setPos(pos.getX(), pos.getY(), pos.getZ());
+        LootParams ringlingKillParams = new LootParams.Builder(level)
+                .withParameter(LootContextParams.THIS_ENTITY, bouncer)
+                .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
+                .withParameter(LootContextParams.DAMAGE_SOURCE, level.damageSources().mobAttack(ringling))
+                .withParameter(LootContextParams.KILLER_ENTITY, ringling)
+                .create(LootContextParamSets.ENTITY);
+        helper.assertTrue(bouncerLoot.getRandomItems(ringlingKillParams).isEmpty(),
+                "Ringling killing bouncer must not drop squished_bouncer");
+
+        LootTable elevibloomLoot = level.getServer().getLootData().getLootTable(new ResourceLocation("enlightened_end:entities/floating_elevibloom"));
+        helper.assertTrue(elevibloomLoot != LootTable.EMPTY, "entities/floating_elevibloom loot table must exist");
+        helper.assertTrue(elevibloomLoot.getRandomItems(playerKillParams).stream()
+                        .anyMatch(s -> s.is(EnlightenedEndModItems.ELEVIBLOOM.get())),
+                "Player killing floating_elevibloom must drop elevibloom via JSON");
+
+        // 3) 验证原硬编码 Tooltip 与方块实体标题均已改为 TranslatableContents
+        List<net.minecraft.network.chat.Component> teleporterTip = new java.util.ArrayList<>();
+        EnlightenedEndModBlocks.TELEPORTER.get().appendHoverText(
+                new ItemStack(EnlightenedEndModBlocks.TELEPORTER.get()),
+                level,
+                teleporterTip,
+                net.minecraft.world.item.TooltipFlag.Default.NORMAL
+        );
+        helper.assertTrue(teleporterTip.size() == 2
+                        && teleporterTip.get(0).getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents tc0
+                        && "tooltip.enlightened_end.teleporter.line1".equals(tc0.getKey()),
+                "TeleporterBlock tooltip must use translation key");
+
+        List<net.minecraft.network.chat.Component> bladeTip = new java.util.ArrayList<>();
+        EnlightenedEndModItems.ROOTING_BLADE.get().appendHoverText(
+                new ItemStack(EnlightenedEndModItems.ROOTING_BLADE.get()),
+                level,
+                bladeTip,
+                net.minecraft.world.item.TooltipFlag.Default.NORMAL
+        );
+        helper.assertTrue(bladeTip.size() == 1
+                        && bladeTip.get(0).getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents tc1
+                        && "tooltip.enlightened_end.rooting_blade".equals(tc1.getKey()),
+                "RootingBladeItem tooltip must use translation key");
+
+        level.setBlock(pos, EnlightenedEndModBlocks.NUCLEAR_FURNACE.get().defaultBlockState(), 3);
+        NuclearFurnaceBlockEntity furnaceBe = (NuclearFurnaceBlockEntity) level.getBlockEntity(pos);
+        helper.assertTrue(furnaceBe != null
+                        && furnaceBe.getDisplayName().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents tc2
+                        && "block.enlightened_end.nuclear_furnace".equals(tc2.getKey()),
+                "NuclearFurnaceBlockEntity displayName must use block translation key");
+
+        helper.succeed();
+    }
+
     private static final class EntityTypeHelper {
         static Pig spawnPig(ServerLevel level, BlockPos pos) {
             Pig pig = net.minecraft.world.entity.EntityType.PIG.create(level);
