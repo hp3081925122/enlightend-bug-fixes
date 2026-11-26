@@ -725,6 +725,61 @@ public final class EfBugfixGameTests {
         helper.succeed();
     }
 
+    /**
+     * 11. 验证 MCR-05/14/18/23/42 专项补修：全量 Mixin 审计、18 实体追踪半径收敛、弹射物禁拾取与寿命兜底、
+     * BouncelingNut 创造判定与防空气进冷却、冲刺护腿发包校验及死亡停音乐发包替换。
+     */
+    @GameTest(template = EMPTY_TEMPLATE, templateNamespace = Enlightendbugfix.MOD_ID)
+    public static void testMcrCatalogAuditFixes(GameTestHelper helper) {
+        org.spongepowered.asm.mixin.MixinEnvironment.getCurrentEnvironment().audit();
+
+        ServerLevel level = helper.getLevel();
+        int checkedEntities = 0;
+        for (var entry : EnlightenedEndModEntities.REGISTRY.getEntries()) {
+            int range = entry.get().clientTrackingRange();
+            helper.assertTrue(range >= 4 && range <= 10,
+                    "Enlightend entity tracking range must be 4..10 chunks, got " + range + " for " + entry.getId());
+            checkedEntities++;
+        }
+        helper.assertTrue(checkedEntities == 18, "Expected 18 Enlightend entities, got " + checkedEntities);
+        helper.assertTrue(EnlightenedEndModEntities.EIDOLON.get().clientTrackingRange() == 10, "Eidolon tracking range must be 10 chunks");
+        helper.assertTrue(EnlightenedEndModEntities.FLASH_BOMB.get().clientTrackingRange() == 6, "FlashBomb tracking range must be 6 chunks");
+
+        // 弹射物禁拾取与闪光弹最大存活上限
+        FlashBombEntity bomb = new FlashBombEntity(EnlightenedEndModEntities.FLASH_BOMB.get(), level);
+        BlockPos absPos = helper.absolutePos(new BlockPos(2, 3, 2));
+        bomb.setPos(absPos.getX() + 0.5D, absPos.getY(), absPos.getZ() + 0.5D);
+        level.addFreshEntity(bomb);
+        bomb.tick();
+        helper.assertTrue(bomb.pickup == net.minecraft.world.entity.projectile.AbstractArrow.Pickup.DISALLOWED,
+                "FlashBombEntity pickup must be DISALLOWED");
+        bomb.tickCount = 400;
+        bomb.tick();
+        helper.assertTrue(bomb.isRemoved(), "FlashBombEntity reaching 400 ticks must discard");
+
+        // BouncelingNut 创造不消耗、生存消耗单格不把 AIR 加入冷却
+        Player creativePlayer = helper.makeMockPlayer();
+        creativePlayer.getAbilities().instabuild = true;
+        ItemStack creativeNut = new ItemStack(EnlightenedEndModItems.SQUISHED_BOUNCER.get(), 1);
+        net.mcreator.enlightened_end.procedures.BouncelingNutRangedItemUsedProcedure.execute(creativePlayer, creativeNut);
+        helper.assertTrue(creativeNut.getCount() == 1, "Creative player must not lose item in BouncelingNutRangedItemUsedProcedure");
+
+        Player survivalPlayer = helper.makeMockSurvivalPlayer();
+        ItemStack survivalNut = new ItemStack(EnlightenedEndModItems.SQUISHED_BOUNCER.get(), 1);
+        net.mcreator.enlightened_end.procedures.BouncelingNutRangedItemUsedProcedure.execute(survivalPlayer, survivalNut);
+        helper.assertTrue(survivalNut.isEmpty(), "Survival player must consume 1 item in BouncelingNutRangedItemUsedProcedure");
+        helper.assertTrue(survivalPlayer.getCooldowns().isOnCooldown(EnlightenedEndModItems.SQUISHED_BOUNCER.get()),
+                "Used item must be placed on cooldown");
+        helper.assertFalse(survivalPlayer.getCooldowns().isOnCooldown(Items.AIR), "Items.AIR must never be placed on cooldown");
+
+        // 冲刺护腿网络包空发送者/未穿护腿拦截，死亡停音乐无命令异常
+        net.mcreator.enlightened_end.network.DashingLeggingsAbilityMessage.pressAction(null, 0, 0);
+        net.mcreator.enlightened_end.network.DashingLeggingsAbilityMessage.pressAction(survivalPlayer, 0, 0);
+        net.mcreator.enlightened_end.procedures.ResetMusicPlayerDeathProcedure.execute(level, absPos.getX(), absPos.getY(), absPos.getZ(), survivalPlayer);
+
+        helper.succeed();
+    }
+
     private static final class EntityTypeHelper {
         static Pig spawnPig(ServerLevel level, BlockPos pos) {
             Pig pig = net.minecraft.world.entity.EntityType.PIG.create(level);

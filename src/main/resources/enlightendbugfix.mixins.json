@@ -5,13 +5,16 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "enlightendbugfix.refmap.json",
   "mixins": [
+    "AbstractArrowProjectilesFixMixin",
     "BlockEntityDefaultNameMixin",
     "BlockEntityScanOptimizeMixin",
     "BlockHarvestMixin",
     "BlockLootDataDrivenMixin",
     "BlockMapColorMixin",
     "BottleAndGasInteractMixin",
+    "BouncelingNutUsedFixMixin",
     "CompostableItemsMixin",
+    "DashingLeggingsMessageGuardMixin",
     "DashingLeggingsTickMixin",
     "DefaultBiomeSeedMixin",
     "EmptyCauldronOozeMixin",
@@ -43,6 +46,7 @@
     "RadiationTickMixin",
     "RadioactiveItemsMixin",
     "RemoveEffectGuardsMixin",
+    "ResetMusicPlayerDeathMixin",
     "RinglingAttackMixin",
     "RootedOnEffectActiveTickMixin",
     "SacrificalStatueBlockEntityMixin",
@@ -57,9 +61,17 @@
   ],
   "client": [
     "client.BoostBootsModelCacheMixin",
+    "client.BubbleJellyOverlayMixin",
+    "client.DashChargeOverlayMixin",
+    "client.Dazed0OverlayMixin",
     "client.EndRenderingFogMixin",
     "client.EndSkiesFogColorMixin",
-    "client.RadiationBarOverlayMixin"
+    "client.HeliumOverlayMixin",
+    "client.OozeOverlayMixin",
+    "client.RadiatedOverlayMixin",
+    "client.RadiationBarOverlayMixin",
+    "client.RadiationFatalOverlayMixin",
+    "client.XenonOverlayMixin"
   ],
   "injectors": {
     "defaultRequire": 1
