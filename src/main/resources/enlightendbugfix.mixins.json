@@ -57,7 +57,13 @@
     "SubBiomeChecksMixin",
     "TeleporterBlockTooltipMixin",
     "UnderlilyOnBonemealMixin",
-    "VoidsteelPickaxeRightclickedMixin"
+    "VoidsteelPickaxeRightclickedMixin",
+    "DrawOozeCircleLoopFixMixin",
+    "FreezingTotemClientDisplayFixMixin",
+    "PlanetaryAirLoopFixMixin",
+    "PlanterySystemAirLoopFixMixin",
+    "PlantOozePlantsLoopFixMixin",
+    "SpreadFreezingPlantsLoopFixMixin"
   ],
   "client": [
     "client.BoostBootsModelCacheMixin",
