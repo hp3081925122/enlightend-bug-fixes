@@ -60,6 +60,7 @@
     "VoidsteelPickaxeRightclickedMixin",
     "DrawOozeCircleLoopFixMixin",
     "FreezingTotemClientDisplayFixMixin",
+    "FrigidEffectTickFixMixin",
     "PlanetaryAirLoopFixMixin",
     "PlanterySystemAirLoopFixMixin",
     "PlantOozePlantsLoopFixMixin",
